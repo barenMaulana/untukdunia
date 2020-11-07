@@ -1,0 +1,181 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: article; Type: TABLE; Schema: public; Owner: barenmaulana
+--
+
+CREATE TABLE public.article (
+    id integer NOT NULL,
+    article_title character(225) NOT NULL,
+    article_content text NOT NULL,
+    article_sub_content text NOT NULL,
+    category text NOT NULL,
+    image character(255) NOT NULL,
+    time_stamps character(50) NOT NULL
+);
+
+
+ALTER TABLE public.article OWNER TO barenmaulana;
+
+--
+-- Name: gallery; Type: TABLE; Schema: public; Owner: barenmaulana
+--
+
+CREATE TABLE public.gallery (
+    id integer NOT NULL,
+    image_title text NOT NULL,
+    article_link character(100),
+    image character(225) NOT NULL
+);
+
+
+ALTER TABLE public.gallery OWNER TO barenmaulana;
+
+--
+-- Name: link_collection; Type: TABLE; Schema: public; Owner: barenmaulana
+--
+
+CREATE TABLE public.link_collection (
+    id integer NOT NULL,
+    link_for character(20) NOT NULL,
+    link character(150)
+);
+
+
+ALTER TABLE public.link_collection OWNER TO barenmaulana;
+
+--
+-- Name: product; Type: TABLE; Schema: public; Owner: barenmaulana
+--
+
+CREATE TABLE public.product (
+    id integer NOT NULL,
+    image_title character(225) NOT NULL,
+    image character(225) NOT NULL
+);
+
+
+ALTER TABLE public.product OWNER TO barenmaulana;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: barenmaulana
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name text NOT NULL,
+    email character(50) NOT NULL,
+    password character(150) NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO barenmaulana;
+
+--
+-- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: barenmaulana
+--
+
+COPY public.article (id, article_title, article_content, article_sub_content, category, image, time_stamps) FROM stdin;
+\.
+
+
+--
+-- Data for Name: gallery; Type: TABLE DATA; Schema: public; Owner: barenmaulana
+--
+
+COPY public.gallery (id, image_title, article_link, image) FROM stdin;
+\.
+
+
+--
+-- Data for Name: link_collection; Type: TABLE DATA; Schema: public; Owner: barenmaulana
+--
+
+COPY public.link_collection (id, link_for, link) FROM stdin;
+1	test                	test                                                                                                                                                  
+2	test2               	test3                                                                                                                                                 
+3	test3               	test3                                                                                                                                                 
+\.
+
+
+--
+-- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: barenmaulana
+--
+
+COPY public.product (id, image_title, image) FROM stdin;
+1	TITLE1                                                                                                                                                                                                                           	default.png                                                                                                                                                                                                                      
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: barenmaulana
+--
+
+COPY public.users (id, name, email, password) FROM stdin;
+\.
+
+
+--
+-- Name: article article_pkey; Type: CONSTRAINT; Schema: public; Owner: barenmaulana
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gallery gallery_pkey; Type: CONSTRAINT; Schema: public; Owner: barenmaulana
+--
+
+ALTER TABLE ONLY public.gallery
+    ADD CONSTRAINT gallery_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: link_collection link_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: barenmaulana
+--
+
+ALTER TABLE ONLY public.link_collection
+    ADD CONSTRAINT link_collection_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: barenmaulana
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: barenmaulana
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
