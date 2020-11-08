@@ -158,4 +158,15 @@ class UserController extends Controller
             return response()->json($response, 400);
         }
     }
+
+    public function authorization()
+    {
+        $response = [
+            'status' => 200,
+            'message' => "auth ok!",
+            'data' => null
+        ];
+
+        return response($response, 200);
+    }
 }
