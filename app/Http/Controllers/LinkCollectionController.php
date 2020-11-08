@@ -25,6 +25,10 @@ class LinkCollectionController extends Controller
             'data' => LinkCollection::all()
         ];
 
+        for ($i = 0; $i <= count($response['data']) - 1; $i++) {
+            $response['data'][$i]['link']  = rtrim($response['data'][$i]['link']);
+        }
+
         return response()->json($response, 200);
     }
 

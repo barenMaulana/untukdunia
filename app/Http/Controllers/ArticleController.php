@@ -184,8 +184,63 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
+        $keyword = $request->K;
 
-        $article = Article::where('article_title', $request->K)->get();
-        dd($article);
+        if ($keyword === null) {
+            $response = [
+                'status' => 400,
+                'message' => 'need keyword parameter!',
+                'data' => null
+            ];
+
+            return response($response, 400);
+        } else if ($keyword == "") {
+            $response = [
+                'status' => 200,
+                'message' => 'success',
+                'data' => Article::all()
+            ];
+
+            for ($i = 0; $i <= count($response['data']) - 1; $i++) {
+                $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
+            }
+
+            return response()->json($response, 200);
+        }
+
+        $search = Article::where('article_title', 'like', '%' . $keyword . '%')->get();
+        if (count($search) == 0) {
+            $response = [
+                'status' => 200,
+                'message' => 'not found any data with that keyword!',
+                'data' => null
+            ];
+
+            return response()->json($response, 200);
+        } else if (count($search) != 0) {
+            $response = [
+                'status' => 200,
+                'message' => 'success',
+                'data' => $search
+            ];
+
+            for ($i = 0; $i <= count($response['data']) - 1; $i++) {
+                $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
+            }
+
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'status' => 200,
+                'message' => 'success',
+                'data' => Article::all()
+            ];
+
+            for ($i = 0; $i <= count($response['data']) - 1; $i++) {
+                $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
+            }
+
+            return response()->json($response, 200);
+        }
     }
 }
