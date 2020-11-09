@@ -36,7 +36,29 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+            // cek api token
+            $api_token = $request->header('api-token');
+            if ($api_token === null) {
+                $response = [
+                    'status' => 401,
+                    'message' => "api token is required!",
+                    'api_token' => $api_token
+                ];
+                return response($response, 401);
+            } else if ($api_token != null) {
+                $response = [
+                    'status' => 401,
+                    'message' => "Unauthorized",
+                    'api_token' => $api_token
+                ];
+                return response($response, 401);
+            } else {
+                $response = [
+                    'status' => 401,
+                    'message' => "Unauthorized",
+                ];
+                return response($response, 401);
+            }
         }
 
         return $next($request);
