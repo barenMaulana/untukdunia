@@ -56,7 +56,6 @@ class ArticleController extends Controller
             'article_title' => 'required|min:3',
             'article_content' => 'required|min:10',
             'article_sub_content' => 'required|max:40',
-            'category' => 'min:3',
             'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:700'
         ]);
 
@@ -65,11 +64,31 @@ class ArticleController extends Controller
         $request->file('image')->move('storage/article/', $file_name . '.' . $extension);
         $file_url = url('storage/article' . '/' . $file_name . '.' . $extension);
 
+        $category = '';
+        // 'education', 'blog', 'product', 'culture'
+        switch ($request->category) {
+            case 'education':
+                $category = 'education';
+                break;
+            case 'blog':
+                $category = 'blog';
+                break;
+            case 'product':
+                $category = 'product';
+                break;
+            case 'culture':
+                $category = 'culture';
+                break;
+            default:
+                $category = 'education';
+                break;
+        }
+
         if (Article::insert([
             'article_title' => $validate['article_title'],
             'article_content' => $validate['article_content'],
             'article_sub_content' => $validate['article_sub_content'],
-            'category' => $validate['category'],
+            'category' => $category,
             'image' => $file_url
         ])) {
             $response = [
@@ -79,7 +98,7 @@ class ArticleController extends Controller
                     'article_title' => $validate['article_title'],
                     'article_content' => $validate['article_content'],
                     'article_sub_content' => $validate['article_sub_content'],
-                    'category' => $validate['category'],
+                    'category' => $category,
                     'image' => $file_url
                 ]
             ];
@@ -108,7 +127,6 @@ class ArticleController extends Controller
                 'article_title' => 'required|min:3',
                 'article_content' => 'required|min:10',
                 'article_sub_content' => 'required|max:40',
-                'category' => 'min:3',
                 'image' => 'required|image|mimes:jpg,png,jpeg|max:700'
             ]);
 
@@ -121,10 +139,29 @@ class ArticleController extends Controller
                 'article_title' => 'required|min:3',
                 'article_content' => 'required|min:10',
                 'article_sub_content' => 'required|max:40',
-                'category' => 'min:3',
                 'old_pict' => 'required'
             ]);
             $file_url = $validate['old_pict'];
+        }
+
+        $category = '';
+        // 'education', 'blog', 'product', 'culture'
+        switch ($request->category) {
+            case 'education':
+                $category = 'education';
+                break;
+            case 'blog':
+                $category = 'blog';
+                break;
+            case 'product':
+                $category = 'product';
+                break;
+            case 'culture':
+                $category = 'culture';
+                break;
+            default:
+                $category = 'education';
+                break;
         }
 
         if (Article::where('id', $id)
@@ -132,7 +169,7 @@ class ArticleController extends Controller
                 'article_title' => $validate['article_title'],
                 'article_content' => $validate['article_content'],
                 'article_sub_content' => $validate['article_sub_content'],
-                'category' => $validate['category'],
+                'category' => $category,
                 'image' => $file_url
             ])
         ) {
@@ -143,7 +180,7 @@ class ArticleController extends Controller
                     'article_title' => $validate['article_title'],
                     'article_content' => $validate['article_content'],
                     'article_sub_content' => $validate['article_sub_content'],
-                    'category' => $validate['category'],
+                    'category' => $category,
                     'image' => $file_url
                 ]
             ];

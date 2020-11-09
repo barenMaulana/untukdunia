@@ -29,20 +29,20 @@ $router->post('/gallery/{id}', 'GalleryController@update');
 $router->delete('/gallery/{id}', 'GalleryController@delete');
 
 // article api
+$router->get('/article/search', 'ArticleController@search');
 $router->get('/article', 'ArticleController@index');
 $router->get('/article/{id}', 'ArticleController@show');
 $router->post('/article', 'ArticleController@insert');
 $router->post('/article/{id}', 'ArticleController@update');
 $router->delete('/article/{id}', 'ArticleController@delete');
-$router->get('/article/search', 'ArticleController@search');
 
 // user api
+$router->get('/user/check-auth', 'UserController@authorization');
 $router->get('/user', 'UserController@index');
 $router->get('/user/{id}', 'UserController@show');
 $router->post('/user', 'UserController@insert');
 $router->put('/user/{id}', 'UserController@update');
 $router->delete('/user/{id}', 'UserController@delete');
-$router->get('/user/check-auth', 'UserController@authorization');
 
 
 //  auth api
