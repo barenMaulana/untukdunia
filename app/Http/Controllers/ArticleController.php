@@ -27,7 +27,10 @@ class ArticleController extends Controller
 
         for ($i = 0; $i <= count($response['data']) - 1; $i++) {
             $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
+            $response['data'][$i]['category'] = explode(',', $response['data'][$i]['category']);
         }
+
+
 
         return response()->json($response, 200);
     }
@@ -46,6 +49,8 @@ class ArticleController extends Controller
         ];
 
         $response['data']['image']  = rtrim($response['data']['image']);
+        $response['data']['category'] = explode(',', $response['data']['category']);
+
 
         return response()->json($response, 200);
     }
@@ -65,23 +70,10 @@ class ArticleController extends Controller
         $file_url = url('storage/article' . '/' . $file_name . '.' . $extension);
 
         $category = '';
-        // 'education', 'blog', 'product', 'culture'
-        switch ($request->category) {
-            case 'education':
-                $category = 'education';
-                break;
-            case 'blog':
-                $category = 'blog';
-                break;
-            case 'product':
-                $category = 'product';
-                break;
-            case 'culture':
-                $category = 'culture';
-                break;
-            default:
-                $category = 'education';
-                break;
+        if ($request->category == null) {
+            $category = 'education';
+        } else {
+            $category = $request->category;
         }
 
         if (Article::insert([
@@ -91,6 +83,7 @@ class ArticleController extends Controller
             'category' => $category,
             'image' => $file_url
         ])) {
+            $category = explode(',', $category);
             $response = [
                 'status' => 201,
                 'message' => 'success',
@@ -145,23 +138,10 @@ class ArticleController extends Controller
         }
 
         $category = '';
-        // 'education', 'blog', 'product', 'culture'
-        switch ($request->category) {
-            case 'education':
-                $category = 'education';
-                break;
-            case 'blog':
-                $category = 'blog';
-                break;
-            case 'product':
-                $category = 'product';
-                break;
-            case 'culture':
-                $category = 'culture';
-                break;
-            default:
-                $category = 'education';
-                break;
+        if ($request->category == null) {
+            $category = 'education';
+        } else {
+            $category = $request->category;
         }
 
         if (Article::where('id', $id)
@@ -173,6 +153,7 @@ class ArticleController extends Controller
                 'image' => $file_url
             ])
         ) {
+            $category = explode(',', $category);
             $response = [
                 'status' => 200,
                 'message' => 'success',
@@ -263,6 +244,7 @@ class ArticleController extends Controller
 
             for ($i = 0; $i <= count($response['data']) - 1; $i++) {
                 $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
+                $response['data'][$i]['category'] = explode(',', $response['data'][$i]['category']);
             }
 
             return response()->json($response, 200);
