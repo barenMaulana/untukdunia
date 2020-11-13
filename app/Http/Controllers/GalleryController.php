@@ -58,7 +58,7 @@ class GalleryController extends Controller
     {
         $validate = $this->validate($request, [
             'image_title' => 'required|min:5',
-            'article_link' => 'min:6',
+            'article_link' => 'nullable',
             'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:700'
         ]);
         $file_name = time();
@@ -103,7 +103,7 @@ class GalleryController extends Controller
         if ($request->hasFile('image')) {
             $validate = $this->validate($request, [
                 'image_title' => 'required|min:5',
-                'article_link' => 'min:6',
+                'article_link' => 'nullable',
                 'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:700'
             ]);
 
@@ -114,7 +114,7 @@ class GalleryController extends Controller
         } else {
             $validate = $this->validate($request, [
                 'image_title' => 'required|min:5',
-                'article_link' => 'min:6',
+                'article_link' => 'nullable',
                 'old_pict' => 'required'
             ]);
 
