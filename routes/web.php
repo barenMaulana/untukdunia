@@ -44,12 +44,12 @@ $router->post('/user', 'UserController@insert');
 $router->put('/user/{id}', 'UserController@update');
 $router->delete('/user/{id}', 'UserController@delete');
 
-
 //  auth api
 $router->post('/login', 'AuthController@login');
 
 //  jumbotron image
 $router->get('/image-management/images', 'ImageController@index');
 $router->post('/image-management/images', 'ImageController@insert');
+$router->get('/image-management/images/{id}', 'ImageController@show');
 $router->post('/image-management/images/{id}', 'ImageController@update');
 $router->delete('/image-management/images/{id}', 'ImageController@delete');

@@ -14,7 +14,7 @@ class ImageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     public function index()
@@ -28,6 +28,24 @@ class ImageController extends Controller
         for ($i = 0; $i <= count($response['data']) - 1; $i++) {
             $response['data'][$i]['image']  = rtrim($response['data'][$i]['image']);
         }
+
+        return response()->json($response, 200);
+    }
+
+    public function show($id)
+    {
+        $data = $this->checkID($id, Image::class);
+        if ($data[1] != 0) {
+            return response()->json($data[0], $data[1]);
+        }
+
+        $response = [
+            'status' => 200,
+            'message' => 'success',
+            'data' => Image::find($id)
+        ];
+
+        $response['data']['image'] = rtrim($response['data']['image']);
 
         return response()->json($response, 200);
     }
