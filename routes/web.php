@@ -53,3 +53,6 @@ $router->post('/image-management/images', 'ImageController@insert');
 $router->get('/image-management/images/{id}', 'ImageController@show');
 $router->post('/image-management/images/{id}', 'ImageController@update');
 $router->delete('/image-management/images/{id}', 'ImageController@delete');
+
+// send mail
+$router->get('/send-mail', 'EmailController@index');
