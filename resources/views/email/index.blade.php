@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+    <title>Pesan dari user</title>
     <style>
         /* -------------------------------------
           GLOBAL RESETS
@@ -32,8 +32,6 @@
 
         table {
             border-collapse: separate;
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
             width: 100%;
         }
 
@@ -233,19 +231,6 @@
             margin-bottom: 0;
         }
 
-        .preheader {
-            color: transparent;
-            display: none;
-            height: 0;
-            max-height: 0;
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            mso-hide: all;
-            visibility: hidden;
-            width: 0;
-        }
-
         .powered-by a {
             text-decoration: none;
         }
@@ -357,7 +342,6 @@
 </head>
 
 <body class="">
-    <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
         <tr>
             <td>&nbsp;</td>
@@ -373,9 +357,19 @@
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
-                                            <p>Hi baren,</p>
-                                            <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
-                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                                            <p>Hi Admin,</p>
+                                            <p>Ada pesan dari pengguna</p>
+                                            <br>
+                                            <br>
+                                            <p>Nama : {{ $name }}</p>
+                                            <p>Email : {{ $email }}</p>
+                                            <p>
+                                                <b>
+                                                    {{ $message_user }}
+                                                </b>
+                                            </p>
+                                            <br>
+                                            {{-- <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                                 <tbody>
                                                     <tr>
                                                         <td align="left">
@@ -389,9 +383,8 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
-                                            <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                                            <p>Good luck! Hope it works.</p>
+                                            </table> --}}
+                                            <p>Terimakasih</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -402,18 +395,17 @@
                     </table>
                     <!-- END CENTERED WHITE CONTAINER -->
 
-                    <!-- START FOOTER -->
-                    <div class="footer">
+                     <!-- START FOOTER -->
+                     <div class="footer">
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="content-block">
-                                    <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
-                                    <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
+                                    <span class="apple-link">Untukdunia, Gedung smk wirabuana jl Camat Kanang, Pabuaran, Kec. Bojong Gede, Bogor, Jawa Barat 16921</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="content-block powered-by">
-                                    Powered by <a href="http://htmlemail.io">HTMLemail</a>.
+                                    Powered by <a href="https://untukdunia.com">untukdunia</a>.
                                 </td>
                             </tr>
                         </table>

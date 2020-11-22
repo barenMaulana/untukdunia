@@ -55,4 +55,4 @@ $router->post('/image-management/images/{id}', 'ImageController@update');
 $router->delete('/image-management/images/{id}', 'ImageController@delete');
 
 // send mail
-$router->get('/send-mail', 'EmailController@index');
+$router->post('/notification-management/email', 'EmailController@index');

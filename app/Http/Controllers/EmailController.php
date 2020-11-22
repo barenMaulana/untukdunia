@@ -3,24 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 
 class EmailController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function index(Request $request)
     {
-        //
-    }
+        $validate = $this->validate($request, [
+            'email' => 'required|min:5',
+            'name' => 'required|min:3',
+            'message' => 'required|min:10'
+        ]);
 
-    public function index()
-    {
-        $dataEmail = ['baren'];
-        Mail::send('email.index', $dataEmail, function ($mail) {
-            $mail->to("barenmaulana@gmail.com", "Baren")->subject("Pesan dari pengguna");
+        $dataEmail = [
+            'name' => $validate['name'],
+            'email' => $validate['email'],
+            'message_user' => $validate['message']
+        ];
+
+        Mail::send('email.index', $dataEmail, function ($message) {
+            $message->to("wirabuanaiot@gmail.com", "untukdunia")->subject("Pesan dari pengguna");
+        });
+
+        Mail::send('email.user', $dataEmail, function ($mail) use ($validate) {
+            $mail->to($validate['email'], $validate['name'])->subject("Untukdunia.com");
         });
     }
 }
