@@ -28,5 +28,11 @@ class EmailController extends Controller
         Mail::send('email.user', $dataEmail, function ($mail) use ($validate) {
             $mail->to($validate['email'], $validate['name'])->subject("Untukdunia.com");
         });
+
+        $response = [
+            'status' => 200,
+            'message' => 'success'
+        ];
+        return response()->json($response, 200);
     }
 }
