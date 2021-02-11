@@ -31,7 +31,7 @@ $router->delete('/gallery/{id}', 'GalleryController@delete');
 // article api
 $router->get('/article/search', 'ArticleController@search');
 $router->get('/article', 'ArticleController@index');
-$router->get('/article/{id}', 'ArticleController@show');
+$router->get('/article/{slug}', 'ArticleController@show');
 $router->post('/article', 'ArticleController@insert');
 $router->post('/article/{id}', 'ArticleController@update');
 $router->delete('/article/{id}', 'ArticleController@delete');

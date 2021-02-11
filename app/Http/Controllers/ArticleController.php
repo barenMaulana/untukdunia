@@ -31,22 +31,15 @@ class ArticleController extends Controller
             $response['data'][$i]['category'] = explode(',', $response['data'][$i]['category']);
         }
 
-
-
         return response()->json($response, 200);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $data = $this->checkID($id, Article::class);
-        if ($data[1] != 0) {
-            return response()->json($data[0], $data[1]);
-        }
-
         $response = [
             'status' => 200,
             'message' => 'success',
-            'data' => Article::find($id)
+            'data' =>  Article::where('slug', $slug)->first()
         ];
 
         $response['data']['image']  = rtrim($response['data']['image']);
