@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -22,7 +23,7 @@ class ArticleController extends Controller
         $response = [
             'status' => 200,
             'message' => 'success',
-            'data' => Article::all()
+            'data' => Article::all(),
         ];
 
         for ($i = 0; $i <= count($response['data']) - 1; $i++) {
@@ -59,15 +60,24 @@ class ArticleController extends Controller
     {
         $validate = $this->validate($request, [
             'article_title' => 'required|min:3',
-            'article_content' => 'required|min:10',
-            'article_sub_content' => 'required|max:350',
-            'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:700'
+            'article_content' => 'required|min:100',
+            'article_sub_content' => 'required|max:2000',
+            'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:8000'
         ]);
+
+        if($this->isIsset($validate['article_title']) > 0){
+            $response = [
+                'status' => 400,
+                'message' => 'judul tersebut sudah digunakan!',
+            ];
+            return response()->json($response, 400);
+        }
 
         $file_name = time();
         $extension = $request->image->extension();
         $request->file('image')->move('storage/article/', $file_name . '.' . $extension);
         $file_url = url('storage/article' . '/' . $file_name . '.' . $extension);
+        $slug = Str::of($validate['article_title'])->slug('-');
 
         $category = '';
         if ($request->category == null) {
@@ -81,6 +91,7 @@ class ArticleController extends Controller
             'article_content' => $validate['article_content'],
             'article_sub_content' => $validate['article_sub_content'],
             'category' => $category,
+            'slug' => $slug,
             'image' => $file_url
         ])) {
             $category = explode(',', $category);
@@ -92,6 +103,7 @@ class ArticleController extends Controller
                     'article_content' => $validate['article_content'],
                     'article_sub_content' => $validate['article_sub_content'],
                     'category' => $category,
+                    'slug' => $slug,
                     'image' => $file_url
                 ]
             ];
@@ -131,7 +143,7 @@ class ArticleController extends Controller
             $validate = $this->validate($request, [
                 'article_title' => 'required|min:3',
                 'article_content' => 'required|min:10',
-                'article_sub_content' => 'required|max:40',
+                'article_sub_content' => 'required|max:8000',
                 'old_pict' => 'required'
             ]);
             $file_url = $validate['old_pict'];
@@ -144,12 +156,21 @@ class ArticleController extends Controller
             $category = $request->category;
         }
 
+        if($this->isIsset($validate['article_title']) > 2){
+            $response = [
+                'status' => 400,
+                'message' => 'judul tersebut sudah digunakan!',
+            ];
+            return response()->json($response, 400);
+        }
+
         if (Article::where('id', $id)
             ->update([
                 'article_title' => $validate['article_title'],
                 'article_content' => $validate['article_content'],
                 'article_sub_content' => $validate['article_sub_content'],
                 'category' => $category,
+                'slug' => Str::of($validate['article_title'])->slug('-'),
                 'image' => $file_url
             ])
         ) {
@@ -262,4 +283,18 @@ class ArticleController extends Controller
             return response()->json($response, 200);
         }
     }
+
+    public function isIsset(String $title){
+        $search = Article::where('article_title', $title)->get();
+        // var_dump(count($search));die;
+        // var_dump($title);die;
+            if (count($search) == 1) {
+                return 2;
+            }else if(count($search) > 0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+    } 
 }
