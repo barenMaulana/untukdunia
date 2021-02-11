@@ -1,7 +1,7 @@
 <?php
 
 $router->get('/', function () use ($router) {
-    return "<h1>WEEBDEV</h1> ";
+    return "<h1></h1> ";
 });
 
 $router->get('/key', function () {

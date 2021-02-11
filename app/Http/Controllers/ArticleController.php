@@ -60,7 +60,7 @@ class ArticleController extends Controller
         $validate = $this->validate($request, [
             'article_title' => 'required|min:3',
             'article_content' => 'required|min:10',
-            'article_sub_content' => 'required|max:150',
+            'article_sub_content' => 'required|max:350',
             'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:700'
         ]);
 
