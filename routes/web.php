@@ -1,12 +1,12 @@
 <?php
 
 $router->get('/', function () use ($router) {
-    return "<h1></h1>";
+    return;
 });
 
-$router->get('/key', function () {
-    return \Illuminate\Support\Str::random(32);
-});
+// $router->get('/key', function () {
+//     return \Illuminate\Support\Str::random(32);
+// });
 
 // link_collection api
 $router->get('/links', 'LinkCollectionController@index');
@@ -22,27 +22,27 @@ $router->post('/product/{id}', 'ProductController@update');
 $router->delete('/product/{id}', 'ProductController@delete');
 
 // gallery api
-$router->get('/gallery', 'GalleryController@index');
-$router->get('/gallery/{id}', 'GalleryController@show');
-$router->post('/gallery', 'GalleryController@insert');
-$router->post('/gallery/{id}', 'GalleryController@update');
-$router->delete('/gallery/{id}', 'GalleryController@delete');
+$router->get('/galleries', 'GalleryController@index');
+$router->get('/galleries/{id}', 'GalleryController@show');
+$router->post('/galleries', 'GalleryController@insert');
+$router->post('/galleries/{id}', 'GalleryController@update');
+$router->delete('/galleries/{id}', 'GalleryController@delete');
 
 // article api
-$router->get('/article/search', 'ArticleController@search');
-$router->get('/article', 'ArticleController@index');
-$router->get('/article/{slug}', 'ArticleController@show');
-$router->post('/article', 'ArticleController@insert');
-$router->post('/article/{id}', 'ArticleController@update');
-$router->delete('/article/{id}', 'ArticleController@delete');
+$router->get('/articles/search', 'ArticleController@search');
+$router->get('/articles', 'ArticleController@index');
+$router->get('/articles/{slug}', 'ArticleController@show');
+$router->post('/articles', 'ArticleController@insert');
+$router->post('/articles/{id}', 'ArticleController@update');
+$router->delete('/articles/{id}', 'ArticleController@delete');
 
 // user api
-$router->get('/user/check-auth', 'UserController@authorization');
-$router->get('/user', 'UserController@index');
-$router->get('/user/{id}', 'UserController@show');
-$router->post('/user', 'UserController@insert');
-$router->put('/user/{id}', 'UserController@update');
-$router->delete('/user/{id}', 'UserController@delete');
+$router->get('/users/check-auth', 'UserController@authorization');
+$router->get('/users', 'UserController@index');
+$router->get('/users/{id}', 'UserController@show');
+$router->post('/users', 'UserController@insert');
+$router->put('/users/{id}', 'UserController@update');
+$router->delete('/users/{id}', 'UserController@delete');
 
 //  auth api
 $router->post('/login', 'AuthController@login');
